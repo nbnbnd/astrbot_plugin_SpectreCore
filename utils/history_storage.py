@@ -17,6 +17,8 @@ class HistoryStorage:
     config = None
     # 基础存储路径
     base_storage_path = None
+    # 默认历史消息存储上限
+    DEFAULT_MAX_HISTORY_MESSAGES = 200
     
     @staticmethod
     def init(config: AstrBotConfig):
@@ -114,13 +116,13 @@ class HistoryStorage:
             history.append(sanitized_message)
 
             # 限制历史记录数量（可通过配置项 max_history_messages 调整）
-            max_history_messages = 200
+            max_history_messages = HistoryStorage.DEFAULT_MAX_HISTORY_MESSAGES
             if HistoryStorage.config:
-                configured_max = HistoryStorage.config.get("max_history_messages", 200)
+                configured_max = HistoryStorage.config.get("max_history_messages", HistoryStorage.DEFAULT_MAX_HISTORY_MESSAGES)
                 if isinstance(configured_max, int) and configured_max > 0:
                     max_history_messages = configured_max
                 else:
-                    logger.warning(f"max_history_messages 配置无效: {configured_max}，使用默认值 200")
+                    logger.warning(f"max_history_messages 配置无效: {configured_max}，使用默认值 {HistoryStorage.DEFAULT_MAX_HISTORY_MESSAGES}")
 
             if len(history) > max_history_messages:
                 history = history[-max_history_messages:]

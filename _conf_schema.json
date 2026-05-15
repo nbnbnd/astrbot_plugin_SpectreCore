@@ -2,7 +2,7 @@
     "group_msg_history": {
         "description": "输入给大模型的消息数量",
         "type": "int",
-        "hint": "决定了会输入给大模型多少条群历史消息（不应超过历史存储上限）",
+        "hint": "决定了会输入给大模型多少条群历史消息（超过历史存储上限时仅使用可用的历史消息）",
         "default": 20
     },
     "max_history_messages": {
