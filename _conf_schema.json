@@ -2,8 +2,14 @@
     "group_msg_history": {
         "description": "输入给大模型的消息数量",
         "type": "int",
-        "hint": "决定了会输入给大模型多少条q群历史消息(最多200条)",
+        "hint": "决定了会输入给大模型多少条群历史消息（不应超过历史存储上限）",
         "default": 20
+    },
+    "max_history_messages": {
+        "description": "聊天历史存储上限",
+        "type": "int",
+        "hint": "建议保留的最大历史消息条数，超过后会保留最新消息（默认200）",
+        "default": 200
     },
     "enable_all_groups": {
         "description": "回复所有群聊",

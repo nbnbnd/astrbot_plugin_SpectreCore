@@ -113,9 +113,17 @@ class HistoryStorage:
             sanitized_message = HistoryStorage._sanitize_message(message)
             history.append(sanitized_message)
 
-            # 限制历史记录数量
-            if len(history) > 200:
-                history = history[-200:]
+            # 限制历史记录数量（可通过配置项 max_history_messages 调整）
+            max_history_messages = 200
+            if HistoryStorage.config:
+                configured_max = HistoryStorage.config.get("max_history_messages", 200)
+                if isinstance(configured_max, int) and configured_max > 0:
+                    max_history_messages = configured_max
+                else:
+                    logger.warning(f"max_history_messages 配置无效: {configured_max}，使用默认值 200")
+
+            if len(history) > max_history_messages:
+                history = history[-max_history_messages:]
 
             # 确保父目录存在
             os.makedirs(os.path.dirname(file_path), exist_ok=True)
@@ -463,4 +471,3 @@ class HistoryStorage:
 
         except Exception as e:
             logger.error(f"清理图片文件时发生错误: {e}")
-

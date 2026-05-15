@@ -39,7 +39,7 @@ astrbot_plugin_SpectreCore/
 ### 配置文件
 
 - **_conf_schema.json**: 定义插件配置项的结构和默认值，包括：
-  - 历史消息数量限制
+  - 历史消息数量限制（`max_history_messages`，默认 200）
   - 启用的群聊列表
   - 私聊回复开关
   - 思考过程过滤
